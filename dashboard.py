@@ -63,7 +63,7 @@ total_chat_turns = df_filtered['total_chat_turns'].sum()
 total_active_chat_users = df_filtered['total_active_chat_users'].sum()
 
 # Display key metrics using Streamlit
-st.title("AFS TMT | GitHub Copilot Key Usage Metrics")
+st.title("AFS TMT | GitHub Copilot Key Metrics")
 st.write("Date Range: 2024-06-06 to 2024-07-29 (excluding weekends and holidays)")
 
 key_metrics = {
