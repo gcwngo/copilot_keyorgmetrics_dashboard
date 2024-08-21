@@ -52,9 +52,9 @@ excluded_dates = weekends + holidays
 # Convert excluded dates to datetime
 excluded_dates = pd.to_datetime(excluded_dates)
 
-# Filter the data between June 6, 2024 and July 29, 2024, excluding weekends and holidays
+# Filter the data between June 6, 2024 and August 20, 2024, excluding weekends and holidays
 start_date = "2024-06-06"
-end_date = "2024-07-29"
+end_date = "2024-08-26"
 mask = (df['day'] >= start_date) & (df['day'] <= end_date) & (~df['day'].isin(excluded_dates))
 df_filtered = df[mask]
 
