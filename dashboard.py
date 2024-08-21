@@ -6,31 +6,27 @@ import streamlit as st
 
 # Construct file paths
 base_dir = os.path.dirname(__file__)
-#file_path_1 = os.path.join(base_dir, "data", "response-07-03-2024.json")
-#file_path_2 = os.path.join(base_dir, "data", "response-07-29-2024.json")
-
-# Construct file path for the compiled response json.
-file_path_compiled = os.path.join(base_dir, "data", "response-compiled.json")
-
-# Load JSON data from response-compiled.json
-with open(file_path_compiled, "r") as f:
-    data_compiled = json.load(f)
-
-df = pd.json_normalize(data_compiled)
+file_path_1 = os.path.join(base_dir, "data", "response-07-03-2024.json")
+file_path_2 = os.path.join(base_dir, "data", "response-07-29-2024.json")
+file_path_3 = os.path.join(base_dir, "data", "response-08-20-2024.json")
 
 # Load JSON data
-# with open(file_path_1, "r") as f:
-#     data1 = json.load(f)
+with open(file_path_1, "r") as f:
+    data1 = json.load(f)
 
-# with open(file_path_2, "r") as f:
-#     data2 = json.load(f)
+with open(file_path_2, "r") as f:
+    data2 = json.load(f)
+
+with open(file_path_3, "r") as f:
+    data3 = json.load(f)
 
 # # Convert JSON data to DataFrame
-# df1 = pd.json_normalize(data1)
-# df2 = pd.json_normalize(data2)
+df1 = pd.json_normalize(data1)
+df2 = pd.json_normalize(data2)
+df3 = pd.json_normalize(data3)
 
 # # Combine data from both files
-# df = pd.concat([df1, df2])
+df = pd.concat([df1, df2, df3])
 
 # Convert the 'day' column to datetime
 df['day'] = pd.to_datetime(df['day'])
