@@ -16,7 +16,7 @@ file_path_compiled = os.path.join(base_dir, "data", "response-compiled.json")
 with open(file_path_compiled, "r") as f:
     data_compiled = json.load(f)
 
-df = pd.DataFrame(data_compiled)
+df = pd.json_normalize(data_compiled)
 
 # Load JSON data
 # with open(file_path_1, "r") as f:
