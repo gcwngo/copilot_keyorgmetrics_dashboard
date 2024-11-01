@@ -9,6 +9,7 @@ base_dir = os.path.dirname(__file__)
 file_path_1 = os.path.join(base_dir, "data", "response-07-03-2024.json")
 file_path_2 = os.path.join(base_dir, "data", "response-07-29-2024.json")
 file_path_3 = os.path.join(base_dir, "data", "response-08-20-2024.json")
+file_path_4 = os.path.join(base_dir, "data", "response-10-31-2024.json")
 
 # Load JSON data
 with open(file_path_1, "r") as f:
@@ -20,13 +21,17 @@ with open(file_path_2, "r") as f:
 with open(file_path_3, "r") as f:
     data3 = json.load(f)
 
+with open(file_path_4, "r") as f:
+    data4 = json.load(f)
+
 # # Convert JSON data to DataFrame
 df1 = pd.json_normalize(data1)
 df2 = pd.json_normalize(data2)
 df3 = pd.json_normalize(data3)
+df4 = pd.json_normalize(data4)
 
 # # Combine data from both files
-df = pd.concat([df1, df2, df3], ignore_index=True)
+df = pd.concat([df1, df2, df3, df4], ignore_index=True)
 
 # Convert the 'day' column to datetime
 df['day'] = pd.to_datetime(df['day'])
@@ -38,9 +43,14 @@ weekends = [
     "2024-07-06", "2024-07-07", "2024-07-13", "2024-07-14",
     "2024-07-20", "2024-07-21", "2024-07-27", "2024-07-28",
     "2024-08-03", "2024-08-04", "2024-08-10", "2024-08-11",
-    "2024-08-17", "2024-08-18"
+    "2024-08-17", "2024-08-18", "2024-08-24", "2024-08-25",
+    "2024-08-31", "2024-09-01", "2024-09-07", "2024-09-08",
+    "2024-09-14", "2024-09-15", "2024-09-21", "2024-09-22",
+    "2024-09-28", "2024-09-29", "2024-10-05", "2024-10-06",
+    "2024-10-12", "2024-10-13", "2024-10-19", "2024-10-20",
+    "2024-10-26", "2024-10-27", "2024-11-02", "2024-11-03"
 ]
-holidays = ["2024-06-19", "2024-07-04"]
+holidays = ["2024-06-19", "2024-07-04", "2024-09-02", "2024-10-14", "2024-11-11", "2024-11-28", "2024-12-25"]
 
 # Combine weekends and holidays into a single list
 excluded_dates = weekends + holidays
@@ -48,9 +58,9 @@ excluded_dates = weekends + holidays
 # Convert excluded dates to datetime
 excluded_dates = pd.to_datetime(excluded_dates)
 
-# Filter the data between June 6, 2024 and August 20, 2024, excluding weekends and holidays
+# Filter the data between June 6, 2024 and October 31, 2024, excluding weekends and holidays
 start_date = "2024-06-06"
-end_date = "2024-08-20"
+end_date = "2024-10-31"
 mask = (df['day'] >= start_date) & (df['day'] <= end_date) & (~df['day'].isin(excluded_dates))
 df_filtered = df[mask]
 
@@ -71,7 +81,7 @@ total_active_chat_users = df_filtered['total_active_chat_users'].sum()
 
 # Display key metrics using Streamlit
 st.title("AFS TMT | GitHub Copilot Key Metrics")
-st.write("Date Range: 2024-06-06 to 2024-08-20 (excluding weekends and holidays)")
+st.write("Date Range: 2024-06-06 to 2024-10-31 (excluding weekends and holidays)")
 
 key_metrics = {
     "Acceptance Rate (%)": round(acceptance_rate, 2),
